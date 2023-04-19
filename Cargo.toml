@@ -1,0 +1,13 @@
+[package]
+name = "sacn-ws281x-adapter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rs_ws281x = "0.4"
+sacn-unofficial = "0.9"
+itertools = "0.10"
+pinboard = "2.1"
+log = "0.4"
+env_logger = "0.10"
+clap = { version = "4.2", features = ["derive"] }
