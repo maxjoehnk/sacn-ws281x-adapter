@@ -17,6 +17,7 @@ const PIXELS_PER_UNIVERSE: usize = 150;
 fn main() {
     env_logger::init();
     let args = SacnWs281xAdapterArgs::parse();
+    let strip_type = args.pixel_mode.into();
     log::info!("sacn-ws281x-adapter v{} starting up", env!("CARGO_PKG_VERSION"));
     let universes = vec![0; args.pixel_count / PIXELS_PER_UNIVERSE]
         .into_iter()
@@ -78,7 +79,7 @@ fn main() {
                 .channel(0, ChannelBuilder::new()
                     .pin(18)
                     .count(args.pixel_count as i32)
-                    .strip_type(StripType::Ws2811Gbr)
+                    .strip_type(strip_type)
                     .brightness(255)
                     .build())
                 .build()
