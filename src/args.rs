@@ -8,7 +8,7 @@ pub struct SacnWs281xAdapterArgs {
     #[arg(short, long)]
     pub pixel_count: usize,
     #[arg(short = 'u', long)]
-    pub universes: Option<Vec<u8>>,
+    pub universes: Option<Vec<u16>>,
     #[arg(short, long, default_value_t)]
     pub pixel_mode: PixelMode
 }

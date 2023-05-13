@@ -4,7 +4,7 @@ use std::sync::Arc;
 use clap::Parser;
 use itertools::Itertools;
 use pinboard::NonEmptyPinboard;
-use rs_ws281x::{ChannelBuilder, ControllerBuilder, StripType};
+use rs_ws281x::{ChannelBuilder, ControllerBuilder};
 use sacn_unofficial::packet::ACN_SDT_MULTICAST_PORT;
 use sacn_unofficial::receive::SacnReceiver;
 
@@ -22,8 +22,9 @@ fn main() {
     let universes = vec![0; args.pixel_count / PIXELS_PER_UNIVERSE]
         .into_iter()
         .enumerate()
-        .map(|(i, _)| i as u16)
+        .map(|(i, _)| i as u16 + 1)
         .collect::<Vec<_>>();
+    let universes = args.universes.unwrap_or(universes);
     log::info!("Listening on Universes {}", universes.iter().join(", "));
     let pixel_buffer = Arc::new(NonEmptyPinboard::new(vec![[0u8; 4]; args.pixel_count]));
     let send_buffer = Arc::clone(&pixel_buffer);
