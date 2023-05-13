@@ -5,11 +5,13 @@ use rs_ws281x::StripType;
 #[derive(Parser, Debug)]
 #[command(author, version, about)]
 pub struct SacnWs281xAdapterArgs {
-    #[arg(short, long)]
+    #[arg(short = 'p', long)]
     pub pixel_count: usize,
+    #[arg(short = 'c', long, default_value_t = 150)]
+    pub pixels_per_universe: usize,
     #[arg(short = 'u', long)]
     pub universes: Option<Vec<u16>>,
-    #[arg(short, long, default_value_t)]
+    #[arg(short = 'm', long, default_value_t)]
     pub pixel_mode: PixelMode
 }
 

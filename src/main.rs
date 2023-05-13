@@ -12,14 +12,12 @@ use crate::args::SacnWs281xAdapterArgs;
 
 mod args;
 
-const PIXELS_PER_UNIVERSE: usize = 150;
-
 fn main() {
     env_logger::init();
     let args = SacnWs281xAdapterArgs::parse();
     let strip_type = args.pixel_mode.into();
     log::info!("sacn-ws281x-adapter v{} starting up", env!("CARGO_PKG_VERSION"));
-    let universes = vec![0; args.pixel_count / PIXELS_PER_UNIVERSE]
+    let universes = vec![0; args.pixel_count / args.pixels_per_universe]
         .into_iter()
         .enumerate()
         .map(|(i, _)| i as u16 + 1)
@@ -49,14 +47,14 @@ fn main() {
                         for packet in packets {
                             for (index, universe_id) in universes.iter().enumerate() {
                                 if packet.universe == *universe_id {
-                                    let led_offset = index * PIXELS_PER_UNIVERSE;
+                                    let led_offset = index * args.pixels_per_universe;
                                     for (i, chunk) in packet.values
                                         .iter()
                                         .skip(1)
                                         .copied()
                                         .chunks(3)
                                         .into_iter()
-                                        .take(PIXELS_PER_UNIVERSE)
+                                        .take(args.pixels_per_universe)
                                         .enumerate() {
                                         let chunk = chunk.collect::<Vec<_>>();
                                         buffer[led_offset + i] = [chunk[0], chunk[1], chunk[2], 0];
