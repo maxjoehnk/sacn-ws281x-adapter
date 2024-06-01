@@ -76,7 +76,7 @@ fn main() {
             log::debug!("Starting Ws281x Thread...");
             let mut led_controller = ControllerBuilder::new()
                 .channel(0, ChannelBuilder::new()
-                    .pin(18)
+                    .pin(args.gpio_port)
                     .count(args.pixel_count as i32)
                     .strip_type(strip_type)
                     .brightness(255)

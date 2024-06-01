@@ -12,7 +12,9 @@ pub struct SacnWs281xAdapterArgs {
     #[arg(short = 'u', long)]
     pub universes: Option<Vec<u16>>,
     #[arg(short = 'm', long, default_value_t)]
-    pub pixel_mode: PixelMode
+    pub pixel_mode: PixelMode,
+    #[arg(short = 'g', long = "gpio", default_value_t = 18)]
+    pub gpio_port: i32,
 }
 
 #[derive(Default, Debug, Clone, Copy, ValueEnum)]
